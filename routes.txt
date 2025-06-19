@@ -1,0 +1,43 @@
+
+  GET|HEAD  / .................................................................................................... home › HomeController@index
+  POST      _ignition/execute-solution ......................... ignition.executeSolution › Spatie\LaravelIgnition › ExecuteSolutionController
+  GET|HEAD  _ignition/health-check ..................................... ignition.healthCheck › Spatie\LaravelIgnition › HealthCheckController
+  POST      _ignition/update-config .................................. ignition.updateConfig › Spatie\LaravelIgnition › UpdateConfigController
+  GET|HEAD  admin ................................................................................ admin.dashboard › AdminController@dashboard
+  GET|HEAD  admin/chat/{rental_id} ......................................................................... admin.chat › AdminController@chat
+  GET|HEAD  admin/chats .................................................................................. admin.chats › AdminController@chats
+  GET|HEAD  admin/costume ............................................................... admin.costume.create › AdminController@createCostume
+  POST      admin/costume/store ........................................................... admin.costume.store › AdminController@storeCostume
+  GET|HEAD  admin/rentals ............................................................................ admin.rentals › AdminController@rentals
+  POST      admin/rentals/{id}/complete .............................................. admin.rentals.complete › AdminController@completeRental
+  POST      admin/rentals/{id}/confirm ................................................. admin.rentals.confirm › AdminController@confirmRental
+  POST      admin/rentals/{rental_id}/confirm-from-chat .............. admin.rentals.confirm-from-chat › AdminController@confirmRentalFromChat
+  GET|HEAD  api/user ......................................................................................................................... 
+  GET|HEAD  category/{category} ...................................................................... category.show › CategoryController@show
+  GET|HEAD  chat/messages/{rentalId} ............................................................. chat.messages › AdminController@getMessages
+  POST      chat/send ...................................................................................... chat.send › RentalController@send
+  GET|HEAD  chat/{rental} ......................................................................................... chat › ChatController@show
+  POST      costume/checkout ................................................................... costume.checkout › CostumeController@checkout
+  GET|POST|HEAD costume/payment .................................................................. costume.payment › CostumeController@payment
+  POST      costume/rent .................................................................... costume.rent.store › CostumeController@storeRent
+  GET|HEAD  costume/{id} ............................................................................... costume.show › CostumeController@show
+  GET|HEAD  costume/{id}/rent .......................................................................... costume.rent › CostumeController@rent
+  GET|HEAD  featured-costumes ..................................................................... featured › CostumeController@featuredIndex
+  GET|HEAD  login ...................................................................................... login › LoginController@showLoginForm
+  POST      login ...................................................................................................... LoginController@login
+  POST      logout .......................................................................................... logout › LogoutController@logout
+  GET|HEAD  orders ............................................................................................ orders › UserController@orders
+  GET|HEAD  profile ......................................................................................... profile › UserController@profile
+  POST      profile/update ..................................................................... profile.update › UserController@updateProfile
+  GET|HEAD  register ................................................................ register › CustomRegisterController@showRegistrationForm
+  POST      register ....................................................................................... CustomRegisterController@register
+  GET|HEAD  rentals ................................................................................... rentals.index › RentalController@index
+  PUT       rentals/{id} ............................................................................ rentals.update › RentalController@update
+  DELETE    rentals/{id} .......................................................................... rentals.destroy › RentalController@destroy
+  GET|HEAD  rentals/{rental}/edit ....................................................................... rentals.edit › RentalController@edit
+  GET|HEAD  sanctum/csrf-cookie ............................................ sanctum.csrf-cookie › Laravel\Sanctum › CsrfCookieController@show
+  GET|HEAD  search ............................................................................................ search › HomeController@search
+  GET|HEAD  user/chat .................................................................................. user.chat › RentalController@userChat
+
+                                                                                                                           Showing [39] routes
+
