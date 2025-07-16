@@ -1,66 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Dable P - ระบบเช่าชุดออนไลน์
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## คำอธิบายโปรเจค
+Dable P คือระบบเว็บแอปพลิเคชันสำหรับเช่าชุดออนไลน์ เช่น ชุดราตรี ชุดไทย ชุดแฟนซี ฯลฯ โดยเน้นความสะดวก รวดเร็ว และโปร่งใสทั้งฝั่งผู้ใช้และแอดมิน มีระบบจัดการชุด ระบบเช่า ระบบแชทระหว่างผู้ใช้กับแอดมิน และระบบยืนยันการชำระเงินครบวงจร เหมาะสำหรับร้านเช่าชุดที่ต้องการขยายบริการสู่โลกออนไลน์
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ฟีเจอร์หลัก
+- **ระบบเช่าชุดออนไลน์**: ผู้ใช้สามารถเลือกชุด ดูรายละเอียด เลือกสี/ไซส์ ระบุวันเช่า และทำรายการเช่าได้ทันที
+- **ระบบผู้ใช้**: สมัครสมาชิก, ล็อกอิน, แก้ไขโปรไฟล์, ดูประวัติการเช่า, แชทกับแอดมิน
+- **ระบบแอดมิน**: จัดการชุด (เพิ่ม/แก้ไข/ลบ), ยืนยัน/ปฏิเสธการเช่า, แชทกับผู้ใช้, ดูแดชบอร์ดสรุปข้อมูล
+- **ระบบแชท**: ผู้ใช้และแอดมินสามารถพูดคุยสอบถาม/ยืนยันข้อมูลผ่านแชทที่ผูกกับแต่ละรายการเช่า
+- **ระบบชำระเงิน**: ผู้ใช้แนบสลิปโอนเงิน (QR Code) เพื่อยืนยันการเช่า แอดมินตรวจสอบและยืนยันสถานะ
+- **ระบบหมวดหมู่ชุด**: แบ่งชุดตามหมวดหมู่ เช่น ราตรี ไทย แต่งงาน ฯลฯ
+- **ระบบโปรโมชั่น/บทความ/FAQ**: แสดงข่าวสาร โปรโมชั่น บทความแฟชั่น และคำถามที่พบบ่อย
+- **ติดตามสถานะการจัดส่ง**: ผู้ใช้สามารถติดตามสถานะการจัดส่งชุดได้
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## โครงสร้างฐานข้อมูล (สรุป)
+- **users**: ข้อมูลผู้ใช้ (ชื่อ, อีเมล, รหัสผ่าน, ที่อยู่, เบอร์โทร, บัญชีธนาคาร, บัตรประชาชน, avatar, role)
+- **categories**: หมวดหมู่ชุด
+- **costumes**: ข้อมูลชุด (ชื่อ, หมวดหมู่, ราคา, สต็อก, รายละเอียด)
+- **costume_variants**: สี/ไซส์ของชุด (type: color/size, value, stock)
+- **costume_images**: รูปภาพชุด (image_path, is_primary)
+- **rentals**: รายการเช่า (user, costume, color, size, วันเริ่ม-สิ้นสุด, จำนวน, สถานะ, หลักฐานชำระเงิน, เหตุผลยกเลิก)
+- **messages**: ข้อความแชท (ผูกกับ rental, user, ข้อความ, is_admin, is_read)
 
-## Learning Laravel
+> **ความสัมพันธ์:**
+> - ผู้ใช้ 1 คน มีได้หลาย rental
+> - ชุด 1 ชุด มีได้หลาย variant (สี/ไซส์) และหลายรูป
+> - rental 1 รายการ มีได้หลาย message (แชท)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Flow การใช้งานฝั่งผู้ใช้
+1. **สมัครสมาชิก/เข้าสู่ระบบ**
+2. **เลือกชุด**: ค้นหาหรือเลือกจากหมวดหมู่ ดูรายละเอียด เลือกสี/ไซส์
+3. **ระบุวันเช่าและจำนวน**
+4. **กรอกที่อยู่ เบอร์โทร บัตรประชาชน**
+5. **ยืนยันรายการเช่า**
+6. **แนบสลิปโอนเงิน (QR Code)**
+7. **รอแอดมินตรวจสอบ**
+8. **แชทสอบถาม/ติดตามสถานะกับแอดมินได้ตลอด**
+9. **รับชุด/คืนชุด/ขยายเวลาหรือยกเลิก (ถ้ามี)**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Flow การจัดการฝั่งแอดมิน
+1. **เข้าสู่ระบบด้วยสิทธิ์แอดมิน**
+2. **ดูแดชบอร์ดสรุปข้อมูลชุด/รายการเช่า**
+3. **เพิ่ม/แก้ไข/ลบชุดและหมวดหมู่**
+4. **ตรวจสอบรายการเช่าที่รอการยืนยัน**
+5. **ตรวจสอบหลักฐานการชำระเงิน**
+6. **ยืนยัน/ปฏิเสธ/เปลี่ยนสถานะรายการเช่า**
+7. **แชทกับผู้ใช้แต่ละราย (ตอบคำถาม แจ้งสถานะ ฯลฯ)**
+8. **จัดการสต็อกเมื่อมีการคืนชุด/ยกเลิก**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## โครงสร้างโฟลเดอร์หลัก
+- `app/Http/Controllers/` : คอนโทรลเลอร์หลักของระบบ (User/Admin/Costume/Rental/Chat ฯลฯ)
+- `app/Models/` : โมเดลฐานข้อมูล (User, Costume, Rental, Message ฯลฯ)
+- `resources/views/` : ไฟล์ Blade Template สำหรับหน้าเว็บ (home, costume, admin, chat ฯลฯ)
+- `routes/web.php` : กำหนดเส้นทางหลักของเว็บ
+- `database/migrations/` : ไฟล์สร้าง/ปรับโครงสร้างฐานข้อมูล
+- `public/` : ไฟล์สาธารณะ (index.php, รูปภาพ, QR Code ฯลฯ)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## ข้อควรทราบ/หมายเหตุ
+- ระบบนี้พัฒนาด้วย Laravel 10, PHP 8.1+
+- ใช้ Tailwind CSS, Vite, Blade Template
+- มีระบบแอดมินแยกจากผู้ใช้ทั่วไป (role-based)
+- มีระบบ soft delete สำหรับ rental ที่ถูกยกเลิก
+- สามารถขยายฟีเจอร์ เช่น ระบบรีวิว ระบบแจ้งเตือน ฯลฯ ได้ในอนาคต
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## เริ่มต้นใช้งาน (เบื้องต้น)
+1. ติดตั้ง Composer และ npm
+2. `composer install && npm install && npm run build`
+3. ตั้งค่า .env และฐานข้อมูล
+4. `php artisan migrate --seed`
+5. `php artisan serve` แล้วเข้าใช้งานผ่าน browser
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
